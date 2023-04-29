@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="author" content="csharpython">
+	<meta name="application-name" content="clicker_game">
+	<!--<link rel="stylesheet" href="css.css">-->
+	<title>Clock</title>
+</head>
+<body>
+    <h1>You have <span id="coin">0</span> coin.</h1>
+    <button type=button onclick="coinget()">+<span id="cpc">1</span>coin</button>
+    <button type=button onclick="upcpc()">Cost : <span id="cost">1</span>coin</button>
+	<script>
+		var havecoin = 0;
+		var cpclv = 1;
+		function coinget(){
+			havecoin+=cpclv;
+			document.getElementById("coin").innerHTML = havecoin;
+		}
+		function upcpc(){
+			if(havecoin >= 2 ** (cpclv-1) ){
+				havecoin -= 2 ** (cpclv-1);
+				cpclv++;
+				document.getElementById("coin").innerHTML = havecoin;
+				document.getElementById("cost").innerHTML = 2 ** (cpclv-1);
+			}
+		}
+	</script>
+</body>
+</html>
