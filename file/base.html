@@ -5,17 +5,24 @@
 	<meta name="author" content="csharpython">
 	<meta name="application-name" content="clicker_game">
 	<!--<link rel="stylesheet" href="css.css">-->
-	<title>Clock</title>
+	<title>Simple clicker game</title>
 </head>
 <body>
-    <h1>You have <span id="coin">0</span> coin.</h1>
-    <button type=button onclick="coinget()">+<span id="cpc">1</span>coin</button>
-    <button type=button onclick="upcpc()">Cost : <span id="cost">1</span>coin</button>
+	<h1>You have <span id="coin">0</span> coin.</h1>
+	<button type=button onclick="coinget()">+<span id="cpc">1</span>coin</button>
+	<button type=button onclick="upcpc()">Cpc +1 Cost : <span id="cost">1</span>coin</button>
+	<br>
+	<button type=button onclick="prestige()">
+		Cpc mult +x1,But reset all above progress<br>
+		Require:<span id="prestige_cost">729</span>coin<br>
+		Now cpc mult is <span id="prestige_level">1</span>
+	</button>
 	<script>
 		var havecoin = 0;
 		var cpclv = 1;
+		var prestige_count = 0;
 		function coinget(){
-			havecoin+=cpclv;
+			havecoin+=cpclv*(prestige_count+1);
 			document.getElementById("coin").innerHTML = havecoin;
 		}
 		function upcpc(){
@@ -23,8 +30,20 @@
 				havecoin -= 2 ** (cpclv-1);
 				cpclv++;
 				document.getElementById("coin").innerHTML = havecoin;
-				document.getElementById("cpc").innerHTML = cpclv;
+				document.getElementById("cpc").innerHTML = cpclv*(prestige_count+1);
 				document.getElementById("cost").innerHTML = 2 ** (cpclv-1);
+			}
+		}
+		function prestige(){
+			if(havecoin >= 3 ** (prestige_count+6) ){
+				havecoin = 0;
+				cpclv = 1;
+				prestige_count++;
+				document.getElementById("coin").innerHTML = 0;
+				document.getElementById("cpc").innerHTML = prestige_count+1;
+				document.getElementById("cost").innerHTML = 1;
+				document.getElementById("prestige_cost").innerHTML = 10 ** (prestige_count+4);
+				document.getElementById("prestige_level").innerHTML = prestige_count+1;
 			}
 		}
 	</script>
