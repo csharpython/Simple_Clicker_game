@@ -18,33 +18,31 @@
 		Now cpc mult is <span id="prestige_level">1</span>
 	</button>
 	<script>
-		var havecoin = 0;
-		var cpclv = 1;
-		var prestige_count = 0;
-		function coinget(){
+		let havecoin = 0;
+		let cpclv = 1;
+		let prestige_count = 0;
+		const coinget = () => {
 			havecoin+=cpclv*(prestige_count+1);
 			document.getElementById("coin").innerHTML = havecoin;
 		}
-		function upcpc(){
-			if(havecoin >= 2 ** (cpclv-1) ){
-				havecoin -= 2 ** (cpclv-1);
-				cpclv++;
-				document.getElementById("coin").innerHTML = havecoin;
-				document.getElementById("cpc").innerHTML = cpclv*(prestige_count+1);
-				document.getElementById("cost").innerHTML = 2 ** (cpclv-1);
-			}
+		const upcpc = () => {
+			if (havecoin < 2 ** (cpclv-1)) return;
+			havecoin -= 2 ** (cpclv-1);
+			cpclv++;
+			document.getElementById("coin").innerHTML = havecoin;
+			document.getElementById("cpc").innerHTML = cpclv*(prestige_count+1);
+			document.getElementById("cost").innerHTML = 2 ** (cpclv-1);
 		}
-		function prestige(){
-			if(havecoin >= 3 ** (prestige_count+6) ){
-				havecoin = 0;
-				cpclv = 1;
-				prestige_count++;
-				document.getElementById("coin").innerHTML = 0;
-				document.getElementById("cpc").innerHTML = prestige_count+1;
-				document.getElementById("cost").innerHTML = 1;
-				document.getElementById("prestige_cost").innerHTML = 10 ** (prestige_count+4);
-				document.getElementById("prestige_level").innerHTML = prestige_count+1;
-			}
+		const prestige = () =>{
+			if(havecoin < 3 ** (prestige_count+6)) return;
+			havecoin = 0;
+			cpclv = 1;
+			prestige_count++;
+			document.getElementById("coin").innerHTML = 0;
+			document.getElementById("cpc").innerHTML = prestige_count+1;
+			document.getElementById("cost").innerHTML = 1;
+			document.getElementById("prestige_cost").innerHTML = 3 ** (prestige_count+6);
+			document.getElementById("prestige_level").innerHTML = prestige_count+1;
 		}
 	</script>
 </body>
